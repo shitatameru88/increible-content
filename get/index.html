@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Increíble</title>
+<style>
+  html,body{margin:0;height:100%}
+  a.wrap{display:flex;min-height:100vh;flex-direction:column;
+         align-items:center;justify-content:center;text-align:center;
+         background:#12100E;color:#eaeaea;text-decoration:none;
+         font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+         padding:24px;-webkit-tap-highlight-color:transparent}
+  .logo{font-size:56px;line-height:1;margin-bottom:20px}
+  .btn{background:#7c3aed;color:#fff;font-weight:800;font-size:21px;
+       padding:16px 30px;border-radius:14px}
+  .sub{opacity:.7;font-size:15px;margin-top:20px}
+</style>
+</head>
+<body>
+  <!-- The WHOLE page is a tap target: any tap navigates to the correct store,
+       which works even in webviews (Messenger) that block auto-redirects. -->
+  <a id="go" class="wrap"
+     href="https://play.google.com/store/apps/details?id=com.increible.app">
+    <div class="logo">✨</div>
+    <div class="btn">📲 Abrir Increíble</div>
+    <div class="sub">Toca la pantalla</div>
+  </a>
+<script>
+(function () {
+  var play = "https://play.google.com/store/apps/details?id=com.increible.app";
+  var ios  = "https://apps.apple.com/app/id6802136561";
+  var ua = (navigator.userAgent || "").toLowerCase();
+  var dest = /iphone|ipad|ipod/.test(ua) ? ios : play; // Android + desktop -> Play
+  var go = document.getElementById("go");
+  if (go) go.href = dest;                    // whole-page tap -> correct store
+  try { window.location.replace(dest); } catch (e) {}  // auto-redirect (FB app)
+  document.addEventListener("click", function () { window.location.href = dest; }, { once: true });
+})();
+</script>
+</body>
+</html>
